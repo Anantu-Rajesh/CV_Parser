@@ -1,0 +1,545 @@
+/* 
+ * GLOBAL STYLES
+ * =============
+ * Main stylesheet for the Employee Dashboard application
+ * Includes: Base styles, animations, transitions, and utility classes
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+ * ROOT CONFIGURATION
+ * Typography and rendering optimizations
+ */
+:root {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 
+ * BODY BACKGROUND
+ * Multi-layered gradient background for visual depth
+ */
+body {
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll from animations */
+  color: #111827; /* Dark text for light mode */
+}
+
+.dark body {
+  color: #f9fafb; /* Light text for dark mode */
+}
+
+/* 
+ * ANIMATED BACKGROUND LAYER 1
+ * Radial gradient spots that create ambient lighting effect
+ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 35%),
+    radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: 0;
+  animation: ambientPulse 15s ease-in-out infinite; /* Subtle breathing effect */
+}
+
+/* 
+ * ANIMATED BACKGROUND LAYER 2
+ * Diagonal gradient overlay for additional depth
+ */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg, 
+    rgba(59, 130, 246, 0.03) 0%, 
+    transparent 50%, 
+    rgba(168, 85, 247, 0.03) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 
+ * SMOOTH SCROLLING
+ * Enables smooth page navigation
+ */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 
+ * SCROLL MARGIN
+ * Prevents content from hiding behind fixed headers
+ */
+* {
+  scroll-margin-top: 100px;
+}
+
+/* 
+ * CUSTOM SCROLLBAR STYLING
+ * Modern, themed scrollbars for better aesthetics
+ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f3f4f6;
+  border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #60a5fa, #2563eb);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s ease;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #3b82f6, #1d4ed8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #3b82f6, #1d4ed8);
+  border: 1px solid transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #60a5fa, #2563eb);
+  border: 1px solid transparent;
+}
+
+/* 
+ * GLOBAL TRANSITIONS
+ * Smooth color transitions for theme switching
+ */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 
+ * INTERACTIVE ELEMENT TRANSITIONS
+ * Enhanced transitions for buttons, inputs, and links
+ */
+button, a, input, select, textarea {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 
+ * BACKGROUND AMBIENT PULSE ANIMATION
+ * Subtle breathing effect for background gradients
+ */
+@keyframes ambientPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* 
+ * CARD FADE-IN-UP ANIMATION
+ * Used for page elements and cards entering the viewport
+ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* 
+ * SCALE FADE-IN ANIMATION
+ * Scale up effect for modal and card elements
+ */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeInScale {
+  animation: fadeInScale 0.4s ease-out;
+}
+
+/* 
+ * SUBTLE PULSE ANIMATION
+ * Used for highlighting active/loading elements
+ */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* 
+ * SHIMMER LOADING EFFECT
+ * Animated shimmer for skeleton loaders
+ */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+/* 
+ * GRADIENT SHIFT ANIMATION
+ * Animated gradients for buttons and backgrounds
+ */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* 
+ * SLIDE-IN ANIMATIONS
+ * Directional slide-in effects
+ */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out;
+}
+
+/* 
+ * FOCUS STYLES
+ * Enhanced focus states for accessibility
+ */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  ring: 2px solid rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15), 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* 
+ * BUTTON HOVER & ACTIVE EFFECTS
+ * Micro-interactions for better user feedback
+ */
+button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+button:not(:disabled):active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Disabled button state */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* 
+ * TABLE ROW HOVER EFFECT
+ * Smooth elevation on hover
+ */
+tbody tr {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+tbody tr:hover {
+  transform: scale(1.002);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  position: relative;
+}
+
+/* 
+ * CARD HOVER EFFECT
+ * Lift effect for card components
+ */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+ * SCROLL FADE-IN ANIMATION
+ * Elements fade in as they enter viewport
+ */
+@keyframes scrollFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-animate {
+  animation: scrollFadeIn 0.8s ease-out forwards;
+}
+
+/* 
+ * STAGGERED ANIMATION
+ * Sequential animation for list items
+ * Each child element animates with a slight delay
+ */
+.stagger-item {
+  animation: scrollFadeIn 0.6s ease-out forwards;
+  opacity: 0; /* Start hidden */
+}
+
+/* Progressive delay for each item (up to 12 items) */
+.stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.stagger-item:nth-child(2) { animation-delay: 0.1s; }
+.stagger-item:nth-child(3) { animation-delay: 0.15s; }
+.stagger-item:nth-child(4) { animation-delay: 0.2s; }
+.stagger-item:nth-child(5) { animation-delay: 0.25s; }
+.stagger-item:nth-child(6) { animation-delay: 0.3s; }
+.stagger-item:nth-child(7) { animation-delay: 0.35s; }
+.stagger-item:nth-child(8) { animation-delay: 0.4s; }
+.stagger-item:nth-child(9) { animation-delay: 0.45s; }
+.stagger-item:nth-child(10) { animation-delay: 0.5s; }
+.stagger-item:nth-child(11) { animation-delay: 0.55s; }
+.stagger-item:nth-child(12) { animation-delay: 0.6s; }
+
+/* 
+ * FLOATING ANIMATION
+ * Gentle up-and-down motion for decorative elements
+ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 
+ * PARALLAX EFFECT
+ * Hardware-accelerated transforms
+ */
+.parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* 
+ * GLASS MORPHISM EFFECT
+ * Frosted glass appearance for modern UI
+ */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-effect {
+  background: rgba(31, 41, 55, 0.8);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+/* 
+ * GLOW EFFECT
+ * Animated glow for emphasis
+ */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* 
+ * RESPONSIVE UTILITIES
+ * Hide elements based on screen size
+ */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hide-on-tablet {
+    display: none;
+  }
+}
+
+/* 
+ * VIEW TRANSITION (for smooth page changes)
+ * Progressive enhancement for browsers that support it
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    view-transition-name: page-transition;
+  }
+}
+
+/* 
+ * CUSTOM BADGE STYLES
+ * Reusable badge components
+ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+.badge-primary {
+  background: linear-gradient(to right, #dbeafe, #bfdbfe);
+  color: #1e40af;
+}
+
+.dark .badge-primary {
+  background: linear-gradient(to right, rgba(30, 58, 138, 0.4), rgba(30, 64, 175, 0.4));
+  color: #93c5fd;
+}
+
+.badge-success {
+  background: linear-gradient(to right, #dcfce7, #d1fae5);
+  color: #166534;
+}
+
+.dark .badge-success {
+  background: linear-gradient(to right, rgba(20, 83, 45, 0.4), rgba(6, 78, 59, 0.4));
+  color: #86efac;
+}
+
+.badge-danger {
+  background: linear-gradient(to right, #fee2e2, #ffe4e6);
+  color: #991b1b;
+}
+
+.dark .badge-danger {
+  background: linear-gradient(to right, rgba(127, 29, 29, 0.4), rgba(136, 19, 55, 0.4));
+  color: #fca5a5;
+}
