@@ -52,7 +52,6 @@ const Header = () => {
         <div className="animate-fadeInUp relative z-10">
           {/* Greeting with gradient text */}
           <h2 className="text-sm sm:text-base md:text-lg font-bold text-white tracking-wide flex items-center">
-            <span className="mr-2">📊</span>
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
               Employee Dashboard
             </span>
@@ -60,7 +59,7 @@ const Header = () => {
           
           {/* Current Date - Hidden on small screens */}
           <p className="text-xs text-gray-400 mt-0.5 hidden sm:block font-medium">
-            📅 {new Date().toLocaleDateString('en-US', { 
+            {new Date().toLocaleDateString('en-US', { 
               weekday: 'long', 
               year: 'numeric', 
               month: 'long', 

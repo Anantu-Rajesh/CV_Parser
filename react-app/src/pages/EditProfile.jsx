@@ -247,7 +247,7 @@ const EditProfile = () => {
                 </svg>
                 <div className="text-center">
                   <p className='text-lg font-semibold text-blue-700 dark:text-blue-300'>
-                    🤖 AI is Processing Your CV...
+                    Processing CV...
                   </p>
                   <p className='text-sm text-blue-600 dark:text-blue-400 mt-1'>
                     Extracting skills, experience, and personal information
@@ -261,7 +261,7 @@ const EditProfile = () => {
                 </svg>
                 <div className="text-center">
                   <p className='text-lg font-semibold text-green-700 dark:text-green-300'>
-                    ✅ {cvFile.name}
+                    {cvFile.name}
                   </p>
                   <p className='text-sm text-green-600 dark:text-green-400 mt-1'>
                     Successfully parsed • {cvData.allSkills.length} skills extracted
