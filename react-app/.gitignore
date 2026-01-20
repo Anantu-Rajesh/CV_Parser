@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Documentation files
+FRONTEND_README.md
+VISUAL_GUIDE.md
+TRANSFORMATION_SUMMARY.md
