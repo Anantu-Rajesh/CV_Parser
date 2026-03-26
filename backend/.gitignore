@@ -4,12 +4,15 @@ __pycache__/
 *$py.class
 *.so
 .Python
+*.pyo
+*.pyd
 
 # Virtual Environment
 venv/
 env/
 ENV/
-.venv
+.venv/
+pip-wheel-metadata/
 
 # IDE
 .vscode/
@@ -21,6 +24,8 @@ ENV/
 # Environment variables
 .env
 .env.local
+.env.*
+!.env.example
 
 # Logs
 *.log
@@ -37,11 +42,12 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+.mypy_cache/
+.ruff_cache/
 
 # Distribution
 dist/
 build/
 *.egg-info/
 
-# Development documentation (contains learning notes, not for git)
 DEVELOPMENT_LEARNINGS.md
